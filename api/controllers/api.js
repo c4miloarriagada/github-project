@@ -1,26 +1,28 @@
 const { response } = require("express");
+const {octokit, login} = require('../helpers/loginGithub')
 const  GithubSchema  = require("../models/github")
+
+
 
 const route = async(req, res = response) => {
 
 
-    const { repo } = req.body
+     const repos =  await octokit.request('GET /user/repos', {})
 
-    try {
-        const newRepo = await GithubSchema.create({repo}) 
-      console.log(newRepo)
-        res.status(200).json(newRepo);
+    console.log(repos)
 
 
-    } catch (error) {
-      console.log(error)
-      res.status(500).json('Error')
-    }
 
 
 };
 
+const axios = require('axios');
+const apiRequest = () =>{
+  return axios.get('http://localhost:8080/api')
+  .then(res => res).catch(error => console.log(error))
+}
 
+apiRequest()
 
 
 

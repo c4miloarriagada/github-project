@@ -5,7 +5,7 @@ const router =  Router();
 
 
 
-router.post('/', route)
+router.get('/', route)
 
 
 module.exports = router;
