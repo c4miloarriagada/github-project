@@ -1,11 +1,13 @@
 const { Router } = require('express');
-const { route } = require('../controllers/api');
+const { firstLoad } = require('../controllers/api');
+const { authenticator, validation }  = require('../middleware/authenticator')
+
 
 const router =  Router();
 
 
 
-router.get('/', route)
+router.post('/',[authenticator, validation] ,firstLoad)
 
 
 module.exports = router;

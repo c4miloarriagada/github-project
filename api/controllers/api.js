@@ -1,31 +1,59 @@
 const { response } = require("express");
-const {octokit, login} = require('../helpers/loginGithub')
-const  GithubSchema  = require("../models/github")
+const axios = require("axios");
+const { octokit } = require("../helpers/loginGithub");
 
+const GithubSchema = require("../models/github");
+const OwnerSchema = require("../models/ownerInfo");
 
+const firstLoad = async (req, res = response) => {
+  try {
+    let repos = await octokit.request("GET /user/repos", {});
 
-const route = async(req, res = response) => {
+    let { data } = repos;
 
+    let owner = data.map((e) => e.owner);
 
-     const repos =  await octokit.request('GET /user/repos', {})
+    owner = owner.filter((e) => e.login === "c4miloarriagada");
 
-    console.log(repos)
+    let { login, avatar_url, html_url } = owner[0];
 
+    await OwnerSchema.create({ login, avatar_url, html_url });
 
+    data.forEach(
+      async (e) =>
+        await GithubSchema.create({
+          repo: e.name,
+          full_name: e.full_name,
+          html_url: e.html_url,
+          update_at: e.updated_at,
+          language: e.language,
+          description: e.description,
+        })
+    );
 
-
+    return res.status(200).send(console.log('register added success'))
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
 };
 
-const axios = require('axios');
-const apiRequest = () =>{
-  return axios.get('http://localhost:8080/api')
-  .then(res => res).catch(error => console.log(error))
-}
+
+const apiRequest = () => {
+
+  return axios
+    .post("http://localhost:8080/api",{
+     _id: process.env.ID
+    })
+    .then((res) => res)
+    .catch((error) => console.log(error));
+};
+
+
 
 apiRequest()
 
 
-
 module.exports = {
-    route
-}
+  firstLoad,
+};
