@@ -1,6 +1,5 @@
 const { response } = require("express");
 const { octokit } = require("../helpers/loginGithub");
-const { apiRequest } = require("../helpers/githubReposUpdate");
 
 const GithubSchema = require("../models/github");
 const OwnerSchema = require("../models/ownerInfo");
