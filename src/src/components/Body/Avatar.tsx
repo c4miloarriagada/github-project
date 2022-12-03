@@ -245,9 +245,9 @@ export const Avatar = () => {
             </svg>
           </li>
         </ul>
-      </div>
+      </div>   
       <Button/>
-    </AvatarComponent>
+    </AvatarComponent>  
   );
 };
 
