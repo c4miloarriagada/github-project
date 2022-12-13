@@ -5,7 +5,7 @@ export const Button = () => {
       <ScrollDownComponent>
         <section>
           <a>
-            <span></span>
+            <span> </span>
           </a>
         </section>
       </ScrollDownComponent>

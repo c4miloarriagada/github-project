@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Body } from "./Body/Body";
 import { Navbar } from "./Navbar/Navbar";
 import { SiderMenu } from "./Navbar/SiderMenu";
-import styled from 'styled-components';
+import { Repos } from "./Github/Repos";
 
 export const Container = () => {
   const [button, setButton] = useState(false);
@@ -18,12 +18,20 @@ export const Container = () => {
 
       { button ? (
         <>
+        <div>
           <Body />
           <SiderMenu />
+        </div>
+          <Repos/>
         </>
       ) : (
         <>
+        <div>
           <Body />
+        </div>
+        <div>
+          <Repos/>
+        </div>
         </>
       )}
 

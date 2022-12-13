@@ -249,7 +249,7 @@ export const Avatar = () => {
       <Button/>
     </AvatarComponent>  
   );
-};
+}; 
 
 const AvatarComponent = styled.div`
 
