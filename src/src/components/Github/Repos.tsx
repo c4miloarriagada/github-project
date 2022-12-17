@@ -1,7 +1,14 @@
+
 import styled from "styled-components"
+import { useFetch } from "../../hooks/useFetch"
+
 
 
 export const Repos = () => {
+
+  const {repos} = useFetch()
+  
+
   return (
     <ReposContainer>
 
@@ -18,6 +25,11 @@ export const Repos = () => {
             </svg>
     Github Projects</h1>
    </div>
+   {repos?.map((e:any)=> <ul>
+    <li key={e._id}>
+        <a href={e.html_url}><h1>{e.full_name}</h1></a>
+    </li>
+    </ul> )}
     </ReposContainer>
   )
 }
